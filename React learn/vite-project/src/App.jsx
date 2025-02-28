@@ -65,7 +65,7 @@ const App = () => {
 
 export default App;*/
 // useEffect Hook
-import React, { useEffect, useState } from 'react';
+/*import React, { useEffect, useState } from 'react';
 
 const App = () => {
   const [num1, setNum1] = useState(100);
@@ -95,6 +95,39 @@ const App = () => {
       <button onClick={handleAddNum1}>Add</button>
       <h1>{num2}</h1>
       <button onClick={handleAddNum2}>Add</button>
+    </div>
+  );
+};
+
+export default App;*/
+
+// useRef Hook
+
+import React, { useEffect, useRef, useState } from "react";
+
+const App = () => {
+  const [input, setInput] = useState("");
+  const inputRef = useRef();
+
+  console.log("Getting rendered");
+
+  const display = () => {
+    console.log(inputRef.current.value); // Access the value property
+    inputRef.current.focus();
+  };
+
+  return (
+    <div>
+      <h1>Input</h1>
+      <input
+        ref={inputRef}
+        type="text"
+        value={input}
+        onChange={(event) => setInput(event.target.value)}
+      />
+      <p>My name is {input}</p>
+      <p>My name is {inputRef.current ? inputRef.current.value : ""}</p>
+      <button onClick={display}>Show input</button>
     </div>
   );
 };
