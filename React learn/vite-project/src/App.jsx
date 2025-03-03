@@ -103,33 +103,73 @@ export default App;*/
 
 // useRef Hook
 
-import React, { useEffect, useRef, useState } from "react";
+// import React, { useEffect, useRef, useState } from "react";
+
+// const App = () => {
+//   const [input, setInput] = useState("");
+//   const inputRef = useRef();
+
+//   console.log("Getting rendered");
+
+//   const display = () => {
+//     console.log(inputRef.current.value); // Access the value property
+//     inputRef.current.focus();
+//   };
+
+//   return (
+//     <div>
+//       <h1>Input</h1>
+//       <input
+//         ref={inputRef}
+//         type="text"
+//         value={input}
+//         onChange={(event) => setInput(event.target.value)}
+//       />
+//       <p>My name is {input}</p>
+//       <p>My name is {inputRef.current ? inputRef.current.value : ""}</p>
+//       <button onClick={display}>Show input</button>
+//     </div>
+//   );
+// };
+
+//export default App;
+
+// useMemo
+import React from "react";
+import { useEffect } from "react";
+import { useState, useMemo } from "react";
 
 const App = () => {
-  const [input, setInput] = useState("");
-  const inputRef = useRef();
+  const [number, setNumber] = useState(0);
+  const [dark, setDark] = useState(false);
 
-  console.log("Getting rendered");
+  const doubleNumber = useMemo(() => {
+    return (number);
+  },[number]);
 
-  const display = () => {
-    console.log(inputRef.current.value); // Access the value property
-    inputRef.current.focus();
+const themeStyles = useMemo(() => {
+  return {
+    backgroundColor: dark ? "black" : "white",
+    color: dark ? "white" : "black",
   };
+},[dark] );
 
-  return (
-    <div>
-      <h1>Input</h1>
-      <input
-        ref={inputRef}
-        type="text"
-        value={input}
-        onChange={(event) => setInput(event.target.value)}
-      />
-      <p>My name is {input}</p>
-      <p>My name is {inputRef.current ? inputRef.current.value : ""}</p>
-      <button onClick={display}>Show input</button>
-    </div>
-  );
+useEffect (() => {
+  console.log("Theme changed");
+}, [themeStyles]);
+
+return (
+  <div>
+   <input
+    type="number"
+    value={number}
+    onChange= {(e) => setNumber(e.target.value)}
+   />
+   <button onClick={() => setDark ((curr) => !curr)}>Toggle Theme</button>
+   <div style ={themeStyles}>{doubleNumber}</div>
+  
+  </div>
+);
+
 };
-
 export default App;
