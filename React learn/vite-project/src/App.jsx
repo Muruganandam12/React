@@ -135,41 +135,69 @@ export default App;*/
 //export default App;
 
 // useMemo
-import React from "react";
-import { useEffect } from "react";
-import { useState, useMemo } from "react";
+// import React from "react";
+// import { useEffect } from "react";
+// import { useState, useMemo } from "react";
 
-const App = () => {
-  const [number, setNumber] = useState(0);
-  const [dark, setDark] = useState(false);
+// const App = () => {
+//   const [number, setNumber] = useState(0);
+//   const [dark, setDark] = useState(false);
 
-  const doubleNumber = useMemo(() => {
-    return (number);
-  },[number]);
+//   const doubleNumber = useMemo(() => {
+//     return (number);
+//   },[number]);
 
-const themeStyles = useMemo(() => {
-  return {
-    backgroundColor: dark ? "black" : "white",
-    color: dark ? "white" : "black",
-  };
-},[dark] );
+// const themeStyles = useMemo(() => {
+//   return {
+//     backgroundColor: dark ? "black" : "white",
+//     color: dark ? "white" : "black",
+//   };
+// },[dark] );
 
-useEffect (() => {
-  console.log("Theme changed");
-}, [themeStyles]);
+// useEffect (() => {
+//   console.log("Theme changed");
+// }, [themeStyles]);
 
-return (
-  <div>
-   <input
-    type="number"
-    value={number}
-    onChange= {(e) => setNumber(e.target.value)}
-   />
-   <button onClick={() => setDark ((curr) => !curr)}>Toggle Theme</button>
-   <div style ={themeStyles}>{doubleNumber}</div>
+// return (
+//   <div>
+//    <input
+//     type="number"
+//     value={number}
+//     onChange= {(e) => setNumber(e.target.value)}
+//    />
+//    <button onClick={() => setDark ((curr) => !curr)}>Toggle Theme</button>
+//    <div style ={themeStyles}>{doubleNumber}</div>
   
-  </div>
-);
+//   </div>
+// );
 
-};
-export default App;
+// };
+// export default App;
+
+//useCallback
+
+import React, { useState, useCallback } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  // Increment function memoized with useCallback
+  const increment = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
+  }, []); // No dependencies, so the function is memoized once
+
+  // Decrement function memoized with useCallback
+  const decrement = useCallback(() => {
+    setCount((prevCount) => prevCount - 1);
+  }, []); // No dependencies, so the function is memoized once
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+}
+
+export default Counter;
