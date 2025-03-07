@@ -176,28 +176,56 @@ export default App;*/
 
 //useCallback
 
-import React, { useState, useCallback } from 'react';
+// import React, { useState, useCallback } from 'react';
 
-function Counter() {
-  const [count, setCount] = useState(0);
+// function Counter() {
+//   const [count, setCount] = useState(0);
 
-  // Increment function memoized with useCallback
-  const increment = useCallback(() => {
-    setCount((prevCount) => prevCount + 1);
-  }, []); // No dependencies, so the function is memoized once
+//   // Increment function memoized with useCallback
+//   const increment = useCallback(() => {
+//     setCount((prevCount) => prevCount + 1);
+//   }, []); // No dependencies, so the function is memoized once
 
-  // Decrement function memoized with useCallback
-  const decrement = useCallback(() => {
-    setCount((prevCount) => prevCount - 1);
-  }, []); // No dependencies, so the function is memoized once
+//   // Decrement function memoized with useCallback
+//   const decrement = useCallback(() => {
+//     setCount((prevCount) => prevCount - 1);
+//   }, []); // No dependencies, so the function is memoized once
 
-  return (
-    <div>
-      <h1>Count: {count}</h1>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-    </div>
-  );
+//   return (
+//     <div>
+//       <h1>Count: {count}</h1>
+//       <button onClick={increment}>Increment</button>
+//       <button onClick={decrement}>Decrement</button>
+//     </div>
+//   );
+// }
+
+// export default Counter;
+
+// useContext hook
+import React, { createContext, useContext, useState } from 'react';
+const AuthContext = createContext();
+function AuthProvider({ children }) {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    return (
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+            {children}
+        </AuthContext.Provider>
+    );
 }
-
-export default Counter;
+function LoginButton() {
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    return (
+        <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+            {isLoggedIn ? 'Logout' : 'Login'}
+        </button>
+    );
+}
+function App() {
+    return (
+        <AuthProvider>
+            <LoginButton />
+        </AuthProvider>
+    );
+}
+export default App;
