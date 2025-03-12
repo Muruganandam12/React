@@ -203,29 +203,53 @@ export default App;*/
 // export default Counter;
 
 // useContext hook
-import React, { createContext, useContext, useState } from 'react';
-const AuthContext = createContext();
-function AuthProvider({ children }) {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+// import React, { createContext, useContext, useState } from 'react';
+// const AuthContext = createContext();
+// function AuthProvider({ children }) {
+//     const [isLoggedIn, setIsLoggedIn] = useState(false);
+//     return (
+//         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+//             {children}
+//         </AuthContext.Provider>
+//     );
+// }
+// function LoginButton() {
+//     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+//     return (
+//         <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+//             {isLoggedIn ? 'Logout' : 'Login'}
+//         </button>
+//     );
+// }
+// function App() {
+//     return (
+//         <AuthProvider>
+//             <LoginButton />
+//         </AuthProvider>
+//     );
+// }
+// export default App;
+
+//usereducer Hook
+import React, { useReducer } from 'react';
+const counterReducer = (state, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { count: state.count + 1 };
+        case 'DECREMENT':
+            return { count: state.count - 1 };
+        default:
+            return state;
+    }
+};
+function Counter() {
+    const [state, dispatch] = useReducer(counterReducer, { count: 0 });
     return (
-        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-            {children}
-        </AuthContext.Provider>
+        <div>
+            <p>Count: {state.count}</p>
+            <button onClick={() => dispatch({ type: 'INCREMENT' })}>Increment</button>
+            <button onClick={() => dispatch({ type: 'DECREMENT' })}>Decrement</button>
+        </div>
     );
 }
-function LoginButton() {
-    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-    return (
-        <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
-            {isLoggedIn ? 'Logout' : 'Login'}
-        </button>
-    );
-}
-function App() {
-    return (
-        <AuthProvider>
-            <LoginButton />
-        </AuthProvider>
-    );
-}
-export default App;
+export default Counter;
