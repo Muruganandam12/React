@@ -231,25 +231,53 @@ export default App;*/
 // export default App;
 
 //usereducer Hook
-import React, { useReducer } from 'react';
-const counterReducer = (state, action) => {
-    switch (action.type) {
-        case 'INCREMENT':
-            return { count: state.count + 1 };
-        case 'DECREMENT':
-            return { count: state.count - 1 };
-        default:
-            return state;
-    }
-};
-function Counter() {
-    const [state, dispatch] = useReducer(counterReducer, { count: 0 });
-    return (
-        <div>
-            <p>Count: {state.count}</p>
-            <button onClick={() => dispatch({ type: 'INCREMENT' })}>Increment</button>
-            <button onClick={() => dispatch({ type: 'DECREMENT' })}>Decrement</button>
-        </div>
-    );
+// import React, { useReducer } from 'react';
+// const counterReducer = (state, action) => {
+//     switch (action.type) {
+//         case 'INCREMENT':
+//             return { count: state.count + 1 };
+//         case 'DECREMENT':
+//             return { count: state.count - 1 };
+//         default:
+//             return state;
+//     }
+// };
+// function Counter() {
+//     const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+//     return (
+//         <div>
+//             <p>Count: {state.count}</p>
+//             <button onClick={() => dispatch({ type: 'INCREMENT' })}>Increment</button>
+//             <button onClick={() => dispatch({ type: 'DECREMENT' })}>Decrement</button>
+//         </div>
+//     );
+//}
+//export default Counter;
+
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./Home";
+import About from "./About";
+import Contact from "./Contact";
+
+function App() {
+  return (
+    <Router>
+      <nav>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
+        </ul>
+      </nav>
+      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </Router>
+  );
 }
-export default Counter;
+
+export default App;
